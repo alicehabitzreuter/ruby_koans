@@ -12,6 +12,8 @@ class AboutArrayAssignment < Neo::Koan
     assert_equal __("Smith"), last_name
   end
 
+  
+
   def test_parallel_assignments_with_extra_values
     first_name, last_name = ["John", "Smith", "III"]
     assert_equal __("John"), first_name
