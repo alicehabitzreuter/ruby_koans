@@ -18,7 +18,9 @@ class Proxy
     # ADD MORE CODE HERE
   end
 
-  # WRITE CODE HERE
+  def channel(number)
+    
+  end
 end
 
 # The proxy object should pass the following Koan:
