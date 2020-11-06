@@ -17,6 +17,12 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # * Everything else is worth 0 points.
 #
+# * 1 1 1 - 1000 points
+# * (2...5) - number * 100
+# * 1 - 100 points
+# * 5 - 50 points
+# * else 0 points
+#
 #
 # Examples:
 #
@@ -30,7 +36,25 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
+  result = 0
+  (1..6).each do |face|
+    count = dice.select{|i| i == face}.size
+    while count > 0 do
+      if count >=3 
+        result += (face == 1) ? 1000 : 100 * face
+        count -= 3
+      elsif face == 1
+        result += count * 100
+        count = 0
+      elsif face == 5
+        result += count * 50
+        count = 0
+      else
+        count = 0
+      end
+    end
+  end
+  result
 end
 
 class AboutScoringProject < Neo::Koan
@@ -68,6 +92,7 @@ class AboutScoringProject < Neo::Koan
 
   def test_score_of_mixed_is_sum
     assert_equal 250, score([2,5,2,2,3])
+    assert_equal 200, score([2,2,2,2,3])
     assert_equal 550, score([5,5,5,5])
     assert_equal 1100, score([1,1,1,1])
     assert_equal 1200, score([1,1,1,1,1])
